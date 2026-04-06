@@ -914,7 +914,7 @@ th.sortable.desc::after{content:'\f0dd';color:var(--primary)}
     <div class="modal-header"><h3><i class="fas fa-cog" style="color:var(--ai);margin-right:6px;"></i> AI功能设置</h3><button class="modal-close" onclick="closeModal('aiSettingsModal')">&times;</button></div>
     <div class="modal-body">
       <div class="form-group">
-        <label class="form-label">OpenAI API Key</label>
+        <label class="form-label">阿里云百炼 API Key</label>
         <div class="api-key-input-wrap">
           <input type="password" class="form-input" id="apiKeyInput" placeholder="sk-..." autocomplete="off">
           <button class="api-key-toggle" onclick="toggleApiKeyVisibility()"><i class="fas fa-eye" id="apiKeyEyeIcon"></i></button>
@@ -923,21 +923,21 @@ th.sortable.desc::after{content:'\f0dd';color:var(--primary)}
       <div class="form-group">
         <label class="form-label">AI模型</label>
         <div class="ai-model-select" id="aiModelSelect">
-          <div class="ai-model-option" onclick="selectAiModel('gpt-4o-mini',this)">GPT-4o Mini<br><span style="font-size:11px;color:var(--gray-400);">快速 / 低成本</span></div>
-          <div class="ai-model-option selected" onclick="selectAiModel('gpt-4o',this)">GPT-4o<br><span style="font-size:11px;color:var(--gray-400);">推荐 / 高质量</span></div>
-          <div class="ai-model-option" onclick="selectAiModel('gpt-4.1',this)">GPT-4.1<br><span style="font-size:11px;color:var(--gray-400);">最新 / 最强</span></div>
+          <div class="ai-model-option" onclick="selectAiModel('qwen-turbo',this)">Qwen Turbo<br><span style="font-size:11px;color:var(--gray-400);">快速 / 低成本</span></div>
+          <div class="ai-model-option selected" onclick="selectAiModel('qwen-plus',this)">Qwen Plus<br><span style="font-size:11px;color:var(--gray-400);">推荐 / 高质量</span></div>
+          <div class="ai-model-option" onclick="selectAiModel('qwen-max',this)">Qwen Max<br><span style="font-size:11px;color:var(--gray-400);">旗舰 / 最强</span></div>
         </div>
       </div>
       <div class="form-group">
         <label class="form-label">API Base URL（可选，用于自定义代理）</label>
-        <input type="text" class="form-input" id="apiBaseUrl" placeholder="https://api.openai.com" value="https://api.openai.com">
+        <input type="text" class="form-input" id="apiBaseUrl" placeholder="https://dashscope.aliyuncs.com/compatible-mode" value="https://dashscope.aliyuncs.com/compatible-mode">
       </div>
       <div class="ai-config-tips">
         <strong>使用说明：</strong><br>
-        1. 请输入您的 OpenAI API Key（以 <code>sk-</code> 开头）<br>
+        1. 请输入您的阿里云百炼平台 API Key（以 <code>sk-</code> 开头）<br>
         2. API Key 仅在当前会话中使用，刷新页面后需重新输入<br>
-        3. 所有AI请求直接从浏览器发送至 OpenAI，不经过任何第三方服务器<br>
-        4. 如需使用自定义代理，请修改 API Base URL
+        3. 所有AI请求直接从浏览器发送至阿里云百炼平台，不经过任何第三方服务器<br>
+        4. 获取API Key：登录 <a href="https://bailian.console.aliyun.com/" target="_blank" style="color:var(--ai);text-decoration:underline;">百炼控制台</a> → API Key管理
       </div>
     </div>
     <div class="modal-footer">
@@ -978,9 +978,9 @@ th.sortable.desc::after{content:'\f0dd';color:var(--primary)}
 
 <script>
 // ============================================================
-// AI Configuration Module (Real OpenAI Integration)
+// AI Configuration Module (阿里云百炼平台 Integration)
 // ============================================================
-var aiConfig = { apiKey: '', model: 'gpt-4o', baseUrl: 'https://api.openai.com' };
+var aiConfig = { apiKey: '', model: 'qwen-plus', baseUrl: 'https://dashscope.aliyuncs.com/compatible-mode' };
 
 function toggleApiKeyVisibility(){
   var inp = document.getElementById('apiKeyInput');
@@ -1009,7 +1009,7 @@ function updateAiStatus(connected){
 }
 async function saveAiSettings(){
   var key = document.getElementById('apiKeyInput').value.trim();
-  var baseUrl = document.getElementById('apiBaseUrl').value.trim() || 'https://api.openai.com';
+  var baseUrl = document.getElementById('apiBaseUrl').value.trim() || 'https://dashscope.aliyuncs.com/compatible-mode';
   if(!key){ showToast('请输入API Key', 'warn'); return; }
   aiConfig.apiKey = key;
   aiConfig.baseUrl = baseUrl;
